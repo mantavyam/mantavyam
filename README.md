@@ -1,4 +1,4 @@
-<h1 align="center">Hi 👋, I'm Shivam Preet</h1>
+<h1 align="center">Hi 👋, I'm Shivam</h1>
 <h3 align="center">Development Acumen - Apps & Games | Product Creator | Disciplined Learner.</h3>
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=mantavyam&label=Profile%20views&color=0e75b6&style=flat" alt="mantavyam" /> </p>
@@ -18,11 +18,11 @@
 <h3 align="left">Connect with me:</h3>
 <p align="left">
 <a href="https://twitter.com/mantavyam_" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg" alt="mantavyam_" height="30" width="40" /></a>
-<a href="https://linkedin.com/in/mantavyam-shivam" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="mantavyam-shivam" height="30" width="40" /></a>
+<a href="https://www.linkedin.com/in/mantavyam-shivam/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="mantavyam-shivam" height="30" width="40" /></a>
 <a href="https://instagram.com/mantavyam_" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="mantavyam_" height="30" width="40" /></a>
 <a href="https://dribbble.com/mantavyam" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/dribbble.svg" alt="mantavyam" height="30" width="40" /></a>
 <a href="https://www.behance.net/mantavyam" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/behance.svg" alt="mantavyam" height="30" width="40" /></a>
-<a href="https://www.youtube.com/c/mantavyam" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/youtube.svg" alt="mantavyam" height="30" width="40" /></a>
+<a href="https://www.youtube.com/@mantavyam" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/youtube.svg" alt="mantavyam" height="30" width="40" /></a>
 <a href="https://discord.gg/https://discord.gg/X9Wbt7YM" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/discord.svg" alt="https://discord.gg/X9Wbt7YM" height="30" width="40" /></a>
 </p>
 

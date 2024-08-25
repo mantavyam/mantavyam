@@ -7,7 +7,7 @@
 
 <p align="left"> <a href="https://twitter.com/mantavyam_" target="blank"><img src="https://img.shields.io/twitter/follow/mantavyam_?logo=twitter&style=for-the-badge" alt="mantavyam_" /></a> </p>
 
-- 🔭 I’m currently working on **Vaultscapes**
+- 🔭 I’m currently working on **Vaultscapes** (App) , **Comrade** (App) & **Aeroskafos** (Game)
 
 - 👨‍💻 All of my projects are available at [https://www.behance.net/mantavyam](https://www.behance.net/mantavyam)
 

@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Checkout your profile repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3  # Use the latest version
 
       - name: Generate snake
-        uses: Platane/snk@v2
+        uses: Platane/snk@v2.1.0  # Use the latest release
         with:
           github_user_name: mantavyam  # Replace with your GitHub username
           outputs: dist/snake.svg

@@ -47,10 +47,16 @@
   <img alt="github contribution grid snake animation" src="https://raw.githubusercontent.com/mantavyam/mantavyam/output/github-contribution-grid-snake.svg">
 </picture>
 
-<p><img align="left" src="https://github-readme-stats.vercel.app/api/top-langs?username=mantavyam&show_icons=true&locale=en&layout=compact" alt="mantavyam" /></p>
+<div align="center" style="display: flex; gap: 20px;">
+    <!-- GitHub Stats Card -->
+    <img src="https://github-readme-stats.vercel.app/api?username=mantavyam&show_icons=true&locale=en" alt="GitHub Stats" />
+    <!-- Streak Stats Card -->
+    <img src="https://github-readme-streak-stats.herokuapp.com/?user=mantavyam" alt="GitHub Streak Stats" />
+</div>
 
-<p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=mantavyam&show_icons=true&locale=en" alt="mantavyam" /></p>
-
-<p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=mantavyam&" alt="mantavyam" /></p>
-<p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=mantavyam" alt="mantavyam" /></a> </p>
-
+<div align="center" style="display: flex; gap: 20px;">
+    <!-- GitHub Stats Card -->
+    <img src="https://github-profile-trophy.vercel.app/?username=mantavyam" alt="GitHub Trophies" />
+        <!-- Streak Stats Card -->
+    <img src="https://github-readme-stats.vercel.app/api/top-langs?username=mantavyam&show_icons=true&locale=en&layout=compact" alt="Top Languages" />
+</div>

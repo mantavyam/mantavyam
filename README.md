@@ -47,7 +47,9 @@
   <img alt="github contribution grid snake animation" src="https://raw.githubusercontent.com/mantavyam/mantavyam/output/github-contribution-grid-snake.svg">
 </picture>
 
-![Metrics](https://raw.githubusercontent.com/mantavyam/mantavyam/main/github-metrics.svg)
+<div align="center">
+    <img width="800" src="https://raw.githubusercontent.com/mantavyam/mantavyam/main/github-metrics.svg" alt="Metrics" />
+</div>
 
 <div align="center" style="display: flex; gap: 20px;">
     <!-- GitHub Stats Card -->

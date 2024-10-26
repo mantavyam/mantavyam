@@ -41,8 +41,11 @@
 | Version Control        | ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)                                                                                                                                                                                                                 |
 | Operating Systems      | ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black) ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white) ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)                                                       |
 
-![Snake animation](https://raw.githubusercontent.com/mantavyam/mantavyam/output/github-contribution-grid-snake-dark.svg)
-![GitHub Snake Animation](https://github.com/mantavyam/mantavyam/blob/output/github-contribution-grid-snake.svg)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mantavyam/mantavyam/output/github-contribution-grid-snake-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/mantavyam/mantavyam/output/github-contribution-grid-snake.svg">
+  <img alt="github contribution grid snake animation" src="https://raw.githubusercontent.com/mantavyam/mantavyam/output/github-contribution-grid-snake.svg">
+</picture>
 
 <p><img align="left" src="https://github-readme-stats.vercel.app/api/top-langs?username=mantavyam&show_icons=true&locale=en&layout=compact" alt="mantavyam" /></p>
 
@@ -51,4 +54,3 @@
 <p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=mantavyam&" alt="mantavyam" /></p>
 <p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=mantavyam" alt="mantavyam" /></a> </p>
 
-![snake svg](https://github.com/mantavyam/mantavyam/blob/output/github-snake.svg)

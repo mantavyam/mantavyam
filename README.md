@@ -50,3 +50,5 @@
 
 <p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=mantavyam&" alt="mantavyam" /></p>
 <p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=mantavyam" alt="mantavyam" /></a> </p>
+
+![snake svg](https://github.com/mantavyam/mantavyam/blob/output/github-contribution-grid-snake.svg)

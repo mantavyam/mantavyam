@@ -1,8 +1,6 @@
 <h1 align="center">Hi 👋, I'm Shivam</h1>
 <h3 align="center">Development Acumen - Apps & Games | Product Creator | Disciplined Learner.</h3>
 
-![Metrics2](https://raw.githubusercontent.com/mantavyam/mantavyam/main/metrics-achievements.svg)
-
 ## ABOUT
 
 - 🔭 I’m currently working on **Vaultscapes** (App) , **Comrade** (App) & **Aeroskafos** (Game)
@@ -43,6 +41,13 @@
 | Version Control        | ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)                                                                                                                                                                                                                 |
 | Operating Systems      | ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black) ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white) ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)                                                       |
 
+<div align="center" style="display: flex; gap: 20px;">
+    <!-- GitHub Stats Card -->
+    <img src="https://github-readme-stats.vercel.app/api?username=mantavyam&show_icons=true&locale=en" alt="GitHub Stats" />
+    <!-- Streak Stats Card -->
+    <img src="https://github-readme-streak-stats.herokuapp.com/?user=mantavyam" alt="GitHub Streak Stats" />
+</div>
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mantavyam/mantavyam/output/github-contribution-grid-snake-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/mantavyam/mantavyam/output/github-contribution-grid-snake.svg">
@@ -53,16 +58,4 @@
     <img width="800" src="https://raw.githubusercontent.com/mantavyam/mantavyam/main/github-metrics.svg" alt="Metrics" />
 </div>
 
-<div align="center" style="display: flex; gap: 20px;">
-    <!-- GitHub Stats Card -->
-    <img src="https://github-readme-stats.vercel.app/api?username=mantavyam&show_icons=true&locale=en" alt="GitHub Stats" />
-    <!-- Streak Stats Card -->
-    <img src="https://github-readme-streak-stats.herokuapp.com/?user=mantavyam" alt="GitHub Streak Stats" />
-</div>
-
-<div align="center" style="display: flex; gap: 20px;">
-    <!-- GitHub Stats Card -->
-    <img src="https://github-profile-trophy.vercel.app/?username=mantavyam" alt="GitHub Trophies" />
-        <!-- Streak Stats Card -->
-    <img src="https://github-readme-stats.vercel.app/api/top-langs?username=mantavyam&show_icons=true&locale=en&layout=compact" alt="Top Languages" />
-</div>
+![Metrics2](https://raw.githubusercontent.com/mantavyam/mantavyam/main/metrics-achievements.svg)

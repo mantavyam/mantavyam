@@ -65,10 +65,10 @@ jobs:
           plugin_skyline: yes
           plugin_skyline_frames: 300
           plugin_skyline_quality: 0.5
-          plugin_skyline_year: current-year
+          plugin_skyline_year: "${{ github.event.inputs.current_year || 'date +'%Y'' }}"
           plugin_skyline_settings: >
             {
-              "url": "https://skyline.github.com/${login}/${2024}",
+              "url": "https://skyline.github.com/${{ github.repository_owner }}/$(date +'%Y')",
               "ready": "[...document.querySelectorAll('span')].map(span => span.innerText).includes('Share on Twitter')",
               "wait": 1,
               "hide": "button, footer, a"

@@ -65,16 +65,19 @@ jobs:
           plugin_notable_from: all
           plugin_notable_self: yes
           plugin_notable_types: commit
-          
+
           # Skyline plugin
           plugin_skyline: yes
           plugin_skyline_frames: 60
           plugin_skyline_quality: 0.5
+          plugin_skyline_wait: 180000  # Wait time set to 3 minutes (in milliseconds)
           plugin_skyline_year: "${{ env.CURRENT_YEAR }}"
           plugin_skyline_settings: >
             {
               "url": "https://skyline.github.com/${{ github.repository_owner }}/${{ env.CURRENT_YEAR }}",
               "ready": "[...document.querySelectorAll('span')].map(span => span.innerText).includes('Share on Twitter')",
               "wait": 1,
+              "extraWait": 5000,  # Additional 5 seconds delay after page is ready
               "hide": "button, footer, a"
             }
+

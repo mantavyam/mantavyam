@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    env:
+      CURRENT_YEAR: ${{ github.event.inputs.current_year || format('{0:yyyy}', github.event.created_at) }}
     steps:
       - uses: lowlighter/metrics@latest
         with:
@@ -65,10 +67,10 @@ jobs:
           plugin_skyline: yes
           plugin_skyline_frames: 300
           plugin_skyline_quality: 0.5
-          plugin_skyline_year: "${{ github.event.inputs.current_year || 'date +'%Y'' }}"
+          plugin_skyline_year: "${{ env.CURRENT_YEAR }}"
           plugin_skyline_settings: >
             {
-              "url": "https://skyline.github.com/${{ github.repository_owner }}/$(date +'%Y')",
+              "url": "https://skyline.github.com/${{ github.repository_owner }}/${{ env.CURRENT_YEAR }}",
               "ready": "[...document.querySelectorAll('span')].map(span => span.innerText).includes('Share on Twitter')",
               "wait": 1,
               "hide": "button, footer, a"

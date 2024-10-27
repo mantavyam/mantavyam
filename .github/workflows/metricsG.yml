@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    timeout-minutes: 10
     steps:
       # Step to get the current year and set it as an environment variable
       - name: Get current year
@@ -70,7 +71,6 @@ jobs:
           plugin_skyline: yes
           plugin_skyline_frames: 60
           plugin_skyline_quality: 0.5
-          plugin_skyline_wait: 180000  # Wait time set to 3 minutes (in milliseconds)
           plugin_skyline_year: "${{ env.CURRENT_YEAR }}"
           plugin_skyline_settings: >
             {

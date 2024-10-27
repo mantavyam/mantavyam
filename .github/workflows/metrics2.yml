@@ -12,9 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    env:
-      CURRENT_YEAR: ${{ github.event.inputs.current_year || format('{0:yyyy}', github.event.created_at) }}
     steps:
+      # Step to get the current year and set it as an environment variable
+      - name: Get current year
+        id: get-year
+        run: echo "CURRENT_YEAR=$(date +'%Y')" >> $GITHUB_ENV
+
       - uses: lowlighter/metrics@latest
         with:
           filename: metrics-achievements.svg

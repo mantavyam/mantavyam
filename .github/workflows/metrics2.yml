@@ -15,6 +15,7 @@ jobs:
     steps:
       - uses: lowlighter/metrics@latest
         with:
+          filename: metrics-achievements.svg
           token: ${{ secrets.METRICS_TOKEN }}
           user: mantavyam
           template: classic
@@ -67,7 +68,7 @@ jobs:
           plugin_skyline_year: current-year
           plugin_skyline_settings: >
             {
-              "url": "https://skyline.github.com/${login}/${year}",
+              "url": "https://skyline.github.com/${login}/${2024}",
               "ready": "[...document.querySelectorAll('span')].map(span => span.innerText).includes('Share on Twitter')",
               "wait": 1,
               "hide": "button, footer, a"

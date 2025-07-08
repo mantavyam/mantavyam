@@ -683,9 +683,21 @@ from PIL import Image
 import requests
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_core.messages import HumanMessage
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
 import os
+import torch
+from diffusers import StableDiffusionPipeline, DPMSolverMultistepScheduler
+import matplotlib.pyplot as plt
+import re
+import random
+from datetime import datetime
 
+# Task 1: Image Ingestion
 def ask_about_image(image_path: str, question: str = "Describe the image") -> str:
+    """
+    Analyze an image using a vision-language model and return a description.
+    """
     try:
         # Read and encode the image
         with open(image_path, "rb") as image_file:
@@ -719,9 +731,39 @@ def ask_about_image(image_path: str, question: str = "Describe the image") -> st
             print(f"Resized image base64 length: {len(image_b64)}")
             image_format = "png"
         
+        # # Direct API Call
+        # print("Attempting direct API call...")
+        # api_url = os.getenv('NVIDIA_BASE_URL', 'http://0.0.0.0:9004/v1') + "/chat/completions"
+        # headers = {"Content-Type": "application/json"}
+        # payload = {
+        #     "model": "microsoft/phi-3-vision-128k-instruct",
+        #     "messages": [
+        #         {
+        #             "role": "user",
+        #             "content": [
+        #                 {"type": "text", "text": question},
+        #                 {"type": "image_url", "image_url": {"url": f"data:image/{image_format};base64,{image_b64}"}}
+        #             ]
+        #         }
+        #     ],
+        #     "max_tokens": 1000,
+        #     "temperature": 0.1
+        # }
+        # response = requests.post(api_url, json=payload, headers=headers)
+        # if response.status_code == 200:
+        #     result = response.json()
+        #     if 'choices' in result and result['choices']:
+        #         return result['choices'][0]['message']['content']
+        #     print(f"Unexpected response: {result}")
+        # else:
+        #     print(f"API call failed: {response.status_code} - {response.text}")
+        
         # LangChain Connector
         print("Attempting LangChain connector...")
-        multimodal_models = ["meta/llama-3.2-11b-vision-instruct"]
+        multimodal_models = [
+            # "microsoft/phi-3-vision-128k-instruct",
+            "meta/llama-3.2-11b-vision-instruct"
+        ]
         for model in multimodal_models:
             try:
                 print(f"Trying model: {model}")
@@ -745,7 +787,12 @@ def ask_about_image(image_path: str, question: str = "Describe the image") -> st
         
         # Fallback
         print("Falling back to text-only model...")
-        text_llm = ChatNVIDIA(model="meta/llama-3.3-70b-instruct")
+        text_llm = ChatNVIDIA(
+            model="meta/llama-3.3-70b-instruct",
+            base_url=os.getenv('NVIDIA_BASE_URL', 'http://0.0.0.0:9004/v1'),
+            max_tokens=1000,
+            temperature=0.1
+        )
         fallback_message = HumanMessage(
             content=f"Cannot process image {image_path}. Provide a generic response to: {question}"
         )
@@ -756,47 +803,272 @@ def ask_about_image(image_path: str, question: str = "Describe the image") -> st
         print(f"Error: {str(e)}")
         return f"Unable to process {image_path}."
 
-# Integrate into your pipeline
+# Task 2: Image Creation
+def generate_images(prompts: list[str], n: int = 1) -> list[tuple[Image.Image, str]]:
+    """
+    Generate images from a list of text prompts using Stable Diffusion and save them to disk.
+    Returns a list of tuples containing PIL Image objects and their file paths.
+    """
+    try:
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+        print(f"Using device: {device}")
+        
+        model_id = "runwayml/stable-diffusion-v1-5"
+        pipeline = StableDiffusionPipeline.from_pretrained(
+            model_id,
+            torch_dtype=torch.float16,
+            safety_checker=None,
+            requires_safety_checker=False
+        )
+        pipeline = pipeline.to(device)
+        pipeline.enable_attention_slicing()
+        pipeline.scheduler = DPMSolverMultistepScheduler.from_config(pipeline.scheduler.config)
+        print(f"Successfully loaded {model_id}")
+        
+        # Create output directory
+        output_dir = "generated_images"
+        os.makedirs(output_dir, exist_ok=True)
+        
+        images_with_paths = []
+        for i, prompt in enumerate(prompts):
+            print(f"Generating image {i+1}/{len(prompts)} for prompt: {prompt}")
+            with torch.autocast(device):
+                image = pipeline(
+                    prompt,
+                    num_inference_steps=20,
+                    guidance_scale=7.5,
+                    width=512,
+                    height=512,
+                    generator=torch.Generator(device=device).manual_seed(42 + i)
+                ).images[0]
+            
+            # Save the image with a unique filename
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"generated_{timestamp}_{i:03d}.png"
+            filepath = os.path.join(output_dir, filename)
+            image.save(filepath)
+            print(f"Saved image to: {filepath}")
+            images_with_paths.append((image, filepath))
+        
+        del pipeline
+        torch.cuda.empty_cache()
+        return images_with_paths
+    
+    except Exception as e:
+        print(f"Error in generate_images: {str(e)}")
+        placeholder_path = f"generated_images/placeholder_{datetime.now().strftime('%Y%m%d_%H%M%S')}_000.png"
+        return [(Image.new('RGB', (512, 512), color='lightgray'), placeholder_path) for _ in range(len(prompts))]
+
+# Task 3: Prompt Synthesis
+def llm_rewrite_to_image_prompts(user_query: str, n: int = 4) -> list[str]:
+    """
+    Transform a complex image description into multiple focused diffusion prompts.
+    """
+    try:
+        llm = ChatNVIDIA(
+            model="meta/llama-3.3-70b-instruct",
+            base_url=os.getenv('NVIDIA_BASE_URL', 'http://0.0.0.0:9004/v1'),
+            max_tokens=2000,
+            temperature=0.7
+        )
+        
+        prompt_template = ChatPromptTemplate.from_template("""
+You are an expert prompt engineer specializing in text-to-image generation. Your task is to transform complex image descriptions into clean, focused prompts that work well with diffusion models like Stable Diffusion.
+
+ORIGINAL DESCRIPTION:
+{description}
+
+TASK: Create {n} different high-quality prompts for image generation based on this description. Each prompt should:
+
+1. Be concise and focused (ideally 10-20 words)
+2. Emphasize different aspects of the original description
+3. Use artistic terminology that diffusion models respond well to
+4. Include quality enhancers like "high quality", "detailed", "professional"
+5. Avoid overly complex or abstract language
+6. Focus on visual elements: colors, lighting, composition, style, mood
+
+GUIDELINES:
+- Use concrete, visual language
+- Include artistic style references when appropriate
+- Mention specific colors, lighting, and composition elements
+- Add quality indicators for better results
+- Each prompt should be unique and emphasize different aspects
+- Make prompts that would inspire an artist to create something beautiful
+
+FORMAT: Return exactly {n} prompts, each on a separate line, numbered 1-{n}. No additional text or explanation.
+
+EXAMPLE FORMAT:
+1. [prompt 1]
+2. [prompt 2]
+3. [prompt 3]
+4. [prompt 4]
+""")
+        
+        chain = prompt_template | llm | StrOutputParser()
+        print(f"Generating {n} synthetic prompts from description...")
+        print(f"Original description: {user_query[:100]}...")
+        
+        response = chain.invoke({"description": user_query, "n": n})
+        sd_prompts = parse_prompts_from_response(response, n)
+        sd_prompts = validate_and_clean_prompts(sd_prompts, n)
+        
+        print(f"Generated {len(sd_prompts)} prompts:")
+        for i, prompt in enumerate(sd_prompts, 1):
+            print(f"{i}. {prompt}")
+        
+        assert len(sd_prompts) == n, f"Expected {n} prompts, got {len(sd_prompts)}"
+        return sd_prompts
+        
+    except Exception as e:
+        print(f"Error in llm_rewrite_to_image_prompts: {str(e)}")
+        return create_fallback_prompts(user_query, n)
+
+def parse_prompts_from_response(response: str, expected_count: int) -> list[str]:
+    prompts = []
+    lines = response.strip().split('\n')
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+        cleaned_line = re.sub(r'^\d+\.\s*', '', line).strip()
+        if len(cleaned_line) > 5:
+            prompts.append(cleaned_line)
+    return prompts[:expected_count]
+
+def validate_and_clean_prompts(prompts: list[str], expected_count: int) -> list[str]:
+    cleaned_prompts = []
+    for prompt in prompts:
+        prompt = prompt.strip().strip('"\'').rstrip(',')
+        quality_indicators = ['high quality', 'detailed', 'professional', 'masterpiece']
+        has_quality = any(indicator in prompt.lower() for indicator in quality_indicators)
+        if not has_quality:
+            prompt += ", high quality, detailed"
+        if 10 <= len(prompt) <= 200:
+            cleaned_prompts.append(prompt)
+    
+    while len(cleaned_prompts) < expected_count:
+        if cleaned_prompts:
+            base_prompt = cleaned_prompts[len(cleaned_prompts) % len(cleaned_prompts)]
+            variation = create_prompt_variation(base_prompt)
+            cleaned_prompts.append(variation)
+        else:
+            cleaned_prompts.append("beautiful artwork, high quality, detailed, professional")
+    
+    return cleaned_prompts[:expected_count]
+
+def create_prompt_variation(base_prompt: str) -> str:
+    style_variations = [
+        "cinematic lighting", "dramatic shadows", "vibrant colors", "soft lighting",
+        "artistic composition", "professional photography", "studio lighting", "natural lighting"
+    ]
+    return f"{base_prompt}, {random.choice(style_variations)}"
+
+def create_fallback_prompts(original_description: str, n: int) -> list[str]:
+    print("Creating fallback prompts...")
+    visual_keywords = extract_visual_keywords(original_description)
+    base_prompts = []
+    if visual_keywords:
+        base_prompts.extend([
+            f"{', '.join(visual_keywords[:3])}, high quality, detailed",
+            f"{', '.join(visual_keywords[1:4])}, professional photography",
+            f"{', '.join(visual_keywords[:2])}, cinematic lighting, masterpiece",
+            f"{', '.join(visual_keywords[2:5])}, vibrant colors, sharp focus"
+        ])
+    else:
+        base_prompts = [
+            "beautiful artwork, high quality, detailed",
+            "professional photography, cinematic lighting",
+            "masterpiece, vibrant colors, sharp focus",
+            "detailed illustration, artistic composition"
+        ]
+    while len(base_prompts) < n:
+        base_prompts.append("high quality artwork, detailed, professional")
+    return base_prompts[:n]
+
+def extract_visual_keywords(text: str) -> list[str]:
+    visual_terms = [
+        'lighting', 'colors', 'bright', 'dark', 'warm', 'cool', 'soft', 'sharp',
+        'detailed', 'smooth', 'textured', 'vibrant', 'muted', 'contrast',
+        'composition', 'artistic', 'professional', 'beautiful', 'elegant',
+        'modern', 'vintage', 'clean', 'complex', 'simple', 'dramatic'
+    ]
+    keywords = []
+    text_lower = text.lower()
+    for term in visual_terms:
+        if term in text_lower:
+            keywords.append(term)
+    return keywords[:5]
+
+# Task 4: Pipelining and Iterating
 def generate_images_from_image(image_url: str, num_images=4):
-    import matplotlib.pyplot as plt
+    """
+    Pipeline to generate images from an input image:
+    - Generate a description
+    - Create synthetic prompts
+    - Produce distinct images
+    Returns: (image_paths, prompts, description)
+    """
     print(f"Generating images for {image_url}")
     
-    # Generate description
+    # Step 1: Generate description
     question = "Describe this image in detail, including subjects, colors, style, composition, mood, and notable elements."
     original_description = ask_about_image(image_url, question)
-    print(f"Original description: {original_description}")
+    if not original_description or "unavailable" in original_description.lower():
+        print("Failed to generate a valid description. Using a placeholder.")
+        original_description = "A placeholder description due to vision model unavailability."
+    print(f"Original description: {original_description[:100]}...")
     
-    # Generate prompts (assuming llm_rewrite_to_image_prompts exists)
+    # Step 2: Generate synthetic prompts
     diffusion_prompts = llm_rewrite_to_image_prompts(original_description, num_images)
     print(f"Generated {len(diffusion_prompts)} prompts:")
     for i, prompt in enumerate(diffusion_prompts, 1):
         print(f"  {i}. {prompt}")
     
-    # Generate images (assuming generate_images exists)
-    generated_images = []
-    for i, prompt in enumerate(diffusion_prompts):
-        print(f"Generating image {i+1}...")
-        try:
-            imgs = generate_images(prompt)  # Returns list of PIL Images
-            if imgs:
-                generated_images.extend(imgs[:1])  # Take one image per prompt
-        except Exception as e:
-            print(f"Error generating image {i+1}: {e}")
+    # Step 3: Generate images
+    images_with_paths = generate_images(diffusion_prompts, n=1)
+    image_paths = [path for _, path in images_with_paths]  # Extract file paths
+    generated_images = [img for img, _ in images_with_paths]  # Extract PIL Images for display
     
-    # Display images
+    if len(image_paths) != num_images:
+        print(f"Warning: Expected {num_images} images, got {len(image_paths)}. Adjusting.")
+        while len(image_paths) < num_images:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            placeholder_path = f"generated_images/placeholder_{timestamp}_{len(image_paths):03d}.png"
+            image_paths.append(placeholder_path)
+            generated_images.append(Image.new('RGB', (512, 512), color='lightgray'))
+    
+    # Step 4: Display images and print file paths
     if generated_images:
+        print("Generated image file paths:")
+        for i, path in enumerate(image_paths[:4], 1):
+            print(f"  Image {i}: {path}")
+        
         fig, axes = plt.subplots(2, 2, figsize=(10, 10))
         axes = axes.flatten()
         for i, img in enumerate(generated_images[:4]):
             axes[i].imshow(img)
             axes[i].axis('off')
             axes[i].set_title(f"Image {i+1}")
+        for i in range(len(generated_images), 4):
+            axes[i].axis('off')
         plt.tight_layout()
         plt.show()
+    else:
+        print("No images were successfully generated")
     
-    return generated_images, diffusion_prompts, original_description
+    return image_paths, diffusion_prompts, original_description
 
-# Test the pipeline
-results = []
-for img in ["imgs/agent-overview.png", "imgs/multimodal.png", "img-files/tree-frog.jpg", "img-files/paint-cat.jpg"]:
-    results.append(generate_images_from_image(img))
+# Execute the pipeline
+if __name__ == "__main__":
+    results = []
+    for img in ["imgs/agent-overview.png", "imgs/multimodal.png", "img-files/tree-frog.jpg", "img-files/paint-cat.jpg"]:
+        if os.path.exists(img):
+            results.append(generate_images_from_image(img))
+        else:
+            print(f"Image {img} not found")
+    
+    print("\nPipeline completed successfully!")
+    print(f"Processed {len(results)} images total")
+    for i, (image_paths, prompts, desc) in enumerate(results, 1):
+        print(f"Image {i}: Generated {len(image_paths)} variations")
+        print(f"File paths: {', '.join(image_paths)}")

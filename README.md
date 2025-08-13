@@ -3,13 +3,8 @@
 
 ## ABOUT
 
-- 🔭 I’m currently working on **Vaultscapes** (App) , **Comrade** (App) & **Aeroskafos** (Game)
-
-- 👨‍💻 All of my projects are available at [https://www.behance.net/mantavyam](https://www.behance.net/mantavyam)
-
-- 📝 I Post Videos on [https://www.youtube.com/@mantavyam](https://www.youtube.com/@mantavyam)
-
 - 📫 How to reach me **https://www.instagram.com/mantavyam_/**
+- 📝 Some Videos Here: [https://www.youtube.com/@mantavyam](https://www.youtube.com/@mantavyam)
 
 ## LET'S CONNECT:
 [![X](https://img.shields.io/badge/X-%23000000.svg?style=for-the-badge&logo=X&logoColor=white)](https://x.com/mantavyam_)

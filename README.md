@@ -3,7 +3,6 @@
 
 ## ABOUT
 
-- 📫 How to reach me **https://www.instagram.com/mantavyam_/**
 - 📝 Some Videos Here: [https://www.youtube.com/@mantavyam](https://www.youtube.com/@mantavyam)
 
 ## LET'S CONNECT:

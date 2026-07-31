@@ -7,7 +7,7 @@
 - Looking for a Specific Repo? (Ensure Collaboration Access), Most Repos are PRIVATE!
 - Escalate via Email for Access: founder@mantavyam.com
 
-## LET'S CONNECT:
+## LET'S CONNECT
 
 [![X](https://img.shields.io/badge/X-%23000000.svg?style=for-the-badge&logo=X&logoColor=white)](https://x.com/mantavyam_)
 [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://youtube.com/@mantavyam)
@@ -15,10 +15,15 @@
 [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/mantavyam)
 [![Cal.com](https://img.shields.io/badge/Schedule_a_Call-Cal.com-000000?style=for-the-badge&logo=Cal.com&logoColor=000000&labelColor=FFFFFF)](https://cal.com/mantavyam/business)
 
-
 [![Mantavyam's Youtube stats](https://youtube-stats-card.vercel.app/api?channelid=UCH525t2RuHu_dIl-WnoHoFw)](https://www.youtube.com/channel/UCH525t2RuHu_dIl-WnoHoFw)
 
-## TOOLS & TECH:
+## SOME PROJECTS
+| [![Aeroskafos](assets/og_image-aeroskafos.png)](https://youtube.com/playlist?list=PLm_ULMrUEJruZg7UBxB-OWF4W33IOu_5F\&si=L0AbXbJJxC5YAWJM) | [![Waylio](assets/og_image-waylio.png)](https://youtu.be/LhDYqYXcScA?si=WF8FoI0NCSMHt5y8\&t=460)  |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| [![Telecom](assets/og_image-telecom.png)](https://youtu.be/YWs3fHdu8Dg?si=b7cSkKDPJmFH9DRO)                                                | [![Document Intel](assets/og_image-document-Intel.png)](https://youtu.be/vSc3l_7twpw)             |
+| [![Market Sense](assets/og_image-market-sense.png)](https://youtu.be/tf_Wsg13NzA?si=yW_qKFVr5qlDKW_K)                                      | [![Dept Sense](assets/og_image-dept-sense.png)](https://youtu.be/72jUDRIv9d0?si=KR3U0HM3EEKAbpTq) |
+
+## TOOLS & TECH
 | Domain                  | Tools                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Game Dev Engines        | ![Unreal Engine](https://img.shields.io/badge/unrealengine-%23313131.svg?style=for-the-badge&logo=unrealengine&logoColor=white)  ![Unity](https://img.shields.io/badge/unity-%23000000.svg?style=for-the-badge&logo=unity&logoColor=white)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |

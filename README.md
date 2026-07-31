@@ -8,10 +8,13 @@
 - Escalate via Email for Access: founder@mantavyam.com
 
 ## LET'S CONNECT:
+
 [![X](https://img.shields.io/badge/X-%23000000.svg?style=for-the-badge&logo=X&logoColor=white)](https://x.com/mantavyam_)
 [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://youtube.com/@mantavyam)
 [![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/users/1168181141929476096)
 [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/mantavyam)
+[![Cal.com](https://img.shields.io/badge/Schedule_a_Call-Cal.com-000000?style=for-the-badge&logo=Cal.com&logoColor=000000&labelColor=FFFFFF)](https://cal.com/mantavyam/business)
+
 
 [![Mantavyam's Youtube stats](https://youtube-stats-card.vercel.app/api?channelid=UCH525t2RuHu_dIl-WnoHoFw)](https://www.youtube.com/channel/UCH525t2RuHu_dIl-WnoHoFw)
 
